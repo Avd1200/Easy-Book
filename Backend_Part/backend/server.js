@@ -2,15 +2,21 @@ const express  = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const dbConnect = require('../config/connect');
-const app = express();
 const usersRoute = require('./routes/UsersRoute');
 const error = require('./middlewares/errorMiddlewareHandler');
 const BookRouter = require('./routes/BooksRoute');
+const cors = require('cors');
+const app = express();
+
+ 
+app.use(cors());
 
 dotenv.config();
 
 //passing body data
 app.use(express.json());
+
+
 
 //connect DB
 dbConnect();
@@ -25,7 +31,7 @@ app.use('/api/books',BookRouter);
 //Error middleware
 app.use(error.errorMiddlewareHandler);
 
-app.listen(5000,()=>{
+app.listen(PORT,()=>{
     console.log(`Server is up and running`);
 })
 

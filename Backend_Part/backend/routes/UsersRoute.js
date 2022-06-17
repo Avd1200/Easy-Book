@@ -44,8 +44,9 @@ usersRoute.post('/login', asyncHandler(async(req,res)=>{
     }
 }))
 
+//Update
 usersRoute.put(
-    '/update',
+    '/profile/update',
     authMiddleware,
     asyncHandler(async (req, res) => {
       //Find the login user by ID
@@ -91,5 +92,20 @@ usersRoute.put(
       }
     })
   );
+
+  //profile route
+  usersRoute.get('/profile',authMiddleware,asyncHandler(async (req,res)=>{
+    try {
+      const user = await User.findById(req.user._id).populate('books');
+      
+      if(!user) throw new Error('You do not have any profile');
+      res.status(200);
+      res.send(user);
+
+    } catch (error) {
+      res.status(500);
+      throw new Error('Server Error');
+    }
+  }))
 
 module.exports = usersRoute;

@@ -3,24 +3,26 @@ const mongoose = require('mongoose');
 const bookSchema = new mongoose.Schema({
     category:{
         type: String,
-        required: [true,'Book Category is required']
+        required: true,
     },
 
     author:{
         type:String,
-        required: true
+        required: true,
     },
 
     title:{
       type: String,
-      required: true
-    }
+      required: true,
+    },
 
-    /*createdBy:{
-       type: mongoose.Schema.Types.ObjectId,
-       ref:'User',
-       required: true
-    },*/
+    image:{
+        type: String,
+        required: true
+    },
+    available:{
+        type: Boolean
+    },
 },
 {
     timestamps:true,
